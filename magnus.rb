@@ -45,9 +45,9 @@ module Magnus
       def sentences
         [
           "good morning #{USER}",
-          "Welcome to day number #{days_alive}",
-          "You have #{days_left} days remaining",
-          "Therefore, you have completed #{percent_life_remaining} percent of your life",
+          "Welcome to day number #{days_alive} of your life",
+          "You have #{days_left} days remaining until you die, probably",
+          "Therefore, you have completed #{percent_life_remaining} percent of your expected life",
           "Today is going to be #{weather}",
         ]
       end
