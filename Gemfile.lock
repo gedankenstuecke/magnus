@@ -1,13 +1,23 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    chronic (0.10.2)
+    dotenv (2.2.1)
     espeak-ruby (1.0.4)
+    json (2.1.0)
+    map (6.6.0)
+    weather-api (1.4.0)
+      chronic (~> 0.10.2)
+      json
+      map (~> 6.6.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   espeak-ruby
+  weather-api
 
 BUNDLED WITH
    1.14.6

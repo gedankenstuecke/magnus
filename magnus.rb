@@ -1,9 +1,14 @@
 require 'bundler'
 Bundler.require
 
+Dotenv.load
+
 USER = 'Audy'
 DOB = Time.new(1985, 12, 11)
 DOD = DOB.to_i + (77 * 365 * 24 * 60 * 60)
+
+DARKSKY = ENV.fetch('DARKSKY')
+POSTAL_CODE = ENV.fetch('POSTAL_CODE')
 
 module Magnus
   class Voice
@@ -41,7 +46,10 @@ module Magnus
       end
 
       def weather
-        "cloudy"
+        Weather.
+          lookup_by_location('San Francisco, CA', Weather::Units::FAHRENHEIT).
+          condition.
+          text
       end
 
       def sentences
