@@ -22,6 +22,8 @@ module Magnus
         end
       end
 
+      private
+
       def seconds_in_a_day
         24 * 60 * 60
       end
