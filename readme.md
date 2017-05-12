@@ -1,3 +1,9 @@
+# Magnus
+
+A bot to remind of my own mortality (and other useful facts)
+
+## License
+
 The MIT License (MIT)
 Copyright (c) 2017 Austin Davis-Richardson 
 
