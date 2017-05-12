@@ -1,6 +1,6 @@
 # Magnus
 
-A bot to remind of my own mortality (and other useful facts)
+A bot to remind of my own mortality (and other useful facts such as the weather)
 
 ## License
 
