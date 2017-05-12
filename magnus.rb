@@ -14,7 +14,7 @@ module Magnus
   class Voice
     class << self
       def speak string
-        ESpeak::Speech.new(string).speak
+        ESpeak::Speech.new(string, voice: 'en-us').speak
       end
     end
   end
@@ -22,7 +22,8 @@ module Magnus
   class MorningRitual
     class << self
       def run!
-        sentences.each do |sentence|
+        sentences.each_with_index do |sentence, i|
+          puts "#{i}.) #{sentence}"
           Voice.speak sentence
         end
       end
@@ -54,11 +55,10 @@ module Magnus
 
       def sentences
         [
-          "good morning #{USER}",
-          "Welcome to day number #{days_alive} of your life",
-          "You have #{days_left} days remaining until you die, probably",
-          "Therefore, you have completed #{percent_life_remaining} percent of your expected life",
-          "Today is going to be #{weather}",
+          "Good morning #{USER}.",
+          "Welcome to day #{days_alive}. You have #{days_left} days remaining.",
+          "You have reached #{percent_life_remaining} percent of your expected life span.",
+          "The weather today is going to be #{weather}.",
         ]
       end
     end
