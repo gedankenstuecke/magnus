@@ -1,14 +1,17 @@
 require 'bundler'
+require 'open-uri'
+
 Bundler.require
 
 Dotenv.load
 
-USER = 'Audy'
-DOB = Time.new(1985, 12, 11)
-DOD = DOB.to_i + (77 * 365 * 24 * 60 * 60)
-
 DARKSKY = ENV.fetch('DARKSKY')
 POSTAL_CODE = ENV.fetch('POSTAL_CODE')
+USER = ENV.fetch('NAME')
+SPEAK= ENV.fetch('SPEAK')
+
+DOB = Time.new(1985, 01, 10)
+DOD = DOB.to_i + (80 * 365 * 24 * 60 * 60)
 
 module Magnus
   class Voice
@@ -24,7 +27,9 @@ module Magnus
       def run!
         sentences.each_with_index do |sentence, i|
           puts "#{i}.) #{sentence}"
-          Voice.speak sentence
+          if SPEAK == "TRUE"
+            Voice.speak sentence
+          end
         end
       end
 
@@ -35,7 +40,7 @@ module Magnus
       end
 
       def days_alive
-        (Time.now - DOB).to_i / seconds_in_a_day 
+        (Time.now - DOB).to_i / seconds_in_a_day
       end
 
       def days_left
@@ -47,8 +52,15 @@ module Magnus
       end
 
       def weather
+        begin
+          remote_ip = open('http://whatismyip.akamai.com').read
+          location = GeoIP.new('GeoLiteCity.dat').city(remote_ip).to_hash[:city_name]
+        rescue
+          location = ENV.fetch('LOCATION')
+        end
+
         Weather.
-          lookup_by_location('San Francisco, CA', Weather::Units::FAHRENHEIT).
+          lookup_by_location(location, Weather::Units::CELSIUS).
           condition.
           text
       end
