@@ -5,10 +5,9 @@ Bundler.require
 
 Dotenv.load
 
-DARKSKY = ENV.fetch('DARKSKY')
-POSTAL_CODE = ENV.fetch('POSTAL_CODE')
 USER = ENV.fetch('NAME')
 SPEAK= ENV.fetch('SPEAK')
+TEMPERATURE = ENV.fetch('TEMPERATURE')
 
 DOB = Time.new(1985, 01, 10)
 DOD = DOB.to_i + (80 * 365 * 24 * 60 * 60)
@@ -59,10 +58,15 @@ module Magnus
           location = ENV.fetch('LOCATION')
         end
 
-        Weather.
-          lookup_by_location(location, Weather::Units::CELSIUS).
-          condition.
-          text
+        if TEMPERATURE.downcase == "celsius"
+          weather =  Weather.
+            lookup_by_location(location, Weather::Units::CELSIUS)
+          condition = "#{weather.condition.text} @ #{weather.condition.temp}°#{weather.units.temperature}"
+        else
+          weather = Weather.
+            lookup_by_location(location, Weather::Units::FAHRENHEIT)
+            condition = "#{weather.condition.text} @ #{weather.condition.temp}°#{weather.units.temperature}"
+        end
       end
 
       def sentences
