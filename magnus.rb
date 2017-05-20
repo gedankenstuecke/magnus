@@ -58,15 +58,19 @@ module Magnus
           location = ENV.fetch('LOCATION')
         end
 
-        if TEMPERATURE.downcase == "celsius"
-          weather =  Weather.
-            lookup_by_location(location, Weather::Units::CELSIUS)
-          condition = "#{weather.condition.text} @ #{weather.condition.temp}°#{weather.units.temperature}"
-        else
-          weather = Weather.
-            lookup_by_location(location, Weather::Units::FAHRENHEIT)
-            condition = "#{weather.condition.text} @ #{weather.condition.temp}°#{weather.units.temperature}"
-        end
+        weather_units =
+          case TEMPERATURE
+          when 'Celsius'
+            Weather::Units::CELSIUS
+          when 'Fahreinheit'
+            Weather::Units::CELSIUS
+          end
+        
+        weather =
+          Weather.
+          lookup_by_location(location, weather_units)
+        
+        "#{weather.condition.text} @ #{weather.condition.temp}°#{weather.units.temperature}"
       end
 
       def sentences
